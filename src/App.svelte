@@ -1,15 +1,17 @@
 <script>
 let warmUp = [{reps: 12, percent: .4}, {reps: 5, percent: .6}, {reps: 3, percent: .75}, {reps: 2, percent: .9}]
+let pyramidSet = [{reps: 12, percent: .7}, {reps: 10, percent: .75}, {reps: 8, percent: .8}, {reps: 6, percent: .85}, {reps: 4, percent: .90}]
+let dropSet = [{reps: "AMAP", percent: 1}, {reps: "AMAP", percent: .8}, {reps: "AMAP", percent: .6}, {reps: "AMAP", percent: .4}]
 let sequence = warmUp;
 let workingWeight = 135;
 
 function plateRound(number) {
-	let roundedNumber = number + 5;
-	// Round the number to the nearest 10.
-	roundedNumber = Math.round(roundedNumber / 10) * 10;
-	// Subtract 5 from the rounded number.
-	roundedNumber -= 5;
-	return roundedNumber;
+  let roundedNumber = number + 5;
+  // Round the number to the nearest 10.
+  roundedNumber = Math.round(roundedNumber / 10) * 10;
+  // Subtract 5 from the rounded number.
+  roundedNumber -= 5;
+  return roundedNumber;
 }
 
 function plateMath(weight) {
@@ -17,7 +19,7 @@ function plateMath(weight) {
 	let equipment = {
 		barbellWeight: 45,
 		platesAvailable: [
-			{ weight: 45, count: 20, holeSize: 2, used: 0 },
+			{ weight: 45, count: 1, holeSize: 2, used: 0 },
 			{ weight: 25, count: 1, holeSize: 2, used: 0 },
 			{ weight: 10, count: 1, holeSize: 2, used: 0 },
 			{ weight: 5, count: 2, holeSize: 2, used: 0 },
@@ -63,36 +65,50 @@ function plateMath(weight) {
 	output = output.substring(0, output.length - 2); //removes the last ", "
 	return output;
 }
+
+function selectText(event) {
+  event.target.setSelectionRange(0, event.target.value.length);
+}
 </script>
 
 <main>
-	<table id="table">
-		<tr>
-			<th>Set</th>
-			<th>Reps</th>
-			<th>Weight</th>
-			<th>Plate Math</th>
-		</tr>
-		{#each sequence as row, id}
-			 <tr>
-				<td> {id+1} </td>
-				<td> {row.reps} </td>
-				<td> {plateRound(workingWeight*row.percent)} </td>
-				<td> {plateMath(plateRound(workingWeight*row.percent))} </td>
-			 </tr>
-		{/each}
-		<tr>
-			<td></td>
-			<td></td>
-			<td>{workingWeight}</td>
-			<td>{plateMath(workingWeight)}</td>
-		</tr>
-	</table>
-	<input type="number" inputmode="numeric" bind:value={workingWeight} maxlength="4">
+  <table class="table">
+    <tr>
+      <th>Reps</th>
+      <th>Weight</th>
+      <th>Plate Math</th>
+    </tr>
+    {#each sequence as row}
+    <tr>
+       <td> {row.reps} </td>
+       <td> {plateRound(workingWeight*row.percent)} </td>
+       <td> {plateMath(plateRound(workingWeight*row.percent))} </td>
+     </tr>
+    {/each}
+    <tr>
+      <td></td>
+      <td>{workingWeight}</td>
+      <td>{plateMath(workingWeight)}</td>
+    </tr>
+  </table>
+  <input
+    bind:value={workingWeight}
+    class="textField"
+    inputmode="numeric"
+    maxlength="3"
+    on:focus={selectText}
+  >
 </main>
 
 <style>
 .table {
-	margin: auto;
+  margin: auto;
+  font-size: 20px;
+}
+
+.textField {
+  margin: auto;
+  display: flex;
+  font-size: 20px;
 }
 </style>
