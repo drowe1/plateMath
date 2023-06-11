@@ -1,10 +1,13 @@
 {
+  "homepage": "http://drowe1.github.io/plateMath",
   "name": "platemath",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -12,5 +15,8 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.4",
     "svelte": "^3.58.0",
     "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
