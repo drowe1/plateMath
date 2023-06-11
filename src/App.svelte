@@ -72,6 +72,14 @@ function selectText(event) {
 </script>
 
 <main>
+  <select
+    bind:value={sequence}
+    class="sequenceSelector"
+  >
+    <option value={warmUp}>Warm Up</option>
+    <option value={dropSet}>Drop Set</option>
+    <option value={pyramidSet}>Pyramid Set</option>
+  </select>
   <table class="table">
     <tr>
       <th>Reps</th>
@@ -101,6 +109,11 @@ function selectText(event) {
 </main>
 
 <style>
+.sequenceSelector {
+  margin: auto;
+  display: flex;
+}
+
 .table {
   margin: auto;
   font-size: 20px;
