@@ -1,14 +1,14 @@
 <script>
-let warmUp = [{reps: 12, percent: .4}, {reps: 5, percent: .6}, {reps: 3, percent: .75}, {reps: 2, percent: .9}]
-let pyramidSet = [{reps: 12, percent: .7}, {reps: 10, percent: .75}, {reps: 8, percent: .8}, {reps: 6, percent: .85}, {reps: 4, percent: .90}]
-let dropSet = [{reps: "AMAP", percent: 1}, {reps: "AMAP", percent: .8}, {reps: "AMAP", percent: .6}, {reps: "AMAP", percent: .4}]
+let warmUp = {sets: [{reps: 12, percent: .4}, {reps: 5, percent: .6}, {reps: 3, percent: .75}, {reps: 2, percent: .9}], round: 10, prompt: "Working Weight"}
+let pyramidSet = {sets: [{reps: 12, percent: .7}, {reps: 10, percent: .75}, {reps: 8, percent: .8}, {reps: 6, percent: .85}, {reps: 4, percent: .90}], round: 5, prompt: "One Rep Max"} 
+let dropSet = {sets: [{reps: "AMAP", percent: 1}, {reps: "AMAP", percent: .8}, {reps: "AMAP", percent: .6}, {reps: "AMAP", percent: .4}], round: 5, prompt: "Working Weight"}
 let sequence = warmUp;
 let workingWeight = 135;
 
-function plateRound(number) {
+function plateRound(number, round) {
   let roundedNumber = number + 5;
   // Round the number to the nearest 10.
-  roundedNumber = Math.round(roundedNumber / 10) * 10;
+  roundedNumber = Math.round(roundedNumber / round) * round;
   // Subtract 5 from the rounded number.
   roundedNumber -= 5;
   return roundedNumber;
@@ -86,11 +86,11 @@ function selectText(event) {
       <th>Weight</th>
       <th>Plate Math</th>
     </tr>
-    {#each sequence as row}
+    {#each sequence.sets as row}
     <tr>
        <td> {row.reps} </td>
-       <td> {plateRound(workingWeight*row.percent)} </td>
-       <td> {plateMath(plateRound(workingWeight*row.percent))} </td>
+       <td> {plateRound(workingWeight*row.percent, sequence.round)} </td>
+       <td> {plateMath(plateRound(workingWeight*row.percent, sequence.round))} </td>
      </tr>
     {/each}
     <tr>
@@ -99,6 +99,7 @@ function selectText(event) {
       <td>{plateMath(workingWeight)}</td>
     </tr>
   </table>
+  <p>{sequence.prompt}</p>
   <input
     bind:value={workingWeight}
     class="textField"
