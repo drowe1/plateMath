@@ -110,19 +110,82 @@ function selectText(event) {
 </main>
 
 <style>
-.sequenceSelector {
-  margin: auto;
+main {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
 }
 
-.table {
-  margin: auto;
-  font-size: 20px;
+.sequenceSelector,
+.textField {
+  font-size: 18px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.sequenceSelector {
+  cursor: pointer;
+  min-width: 200px;
 }
 
 .textField {
-  margin: auto;
-  display: flex;
-  font-size: 20px;
+  width: 120px;
+  font-weight: 600;
+}
+
+.sequenceSelector:focus,
+.textField:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(94, 182, 255, 0.25);
+}
+
+.table {
+  width: 100%;
+  font-size: 18px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.table :global(th) {
+  padding: 12px 10px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface-alt);
+}
+
+.table :global(td) {
+  padding: 12px 10px;
+  border-top: 1px solid var(--border);
+}
+
+.table :global(tr:last-child td) {
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--surface-alt);
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 </style>
